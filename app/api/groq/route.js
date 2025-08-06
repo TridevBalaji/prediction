@@ -9,18 +9,50 @@ export async function POST(req) {
             apiKey: process.env.GROQ_API_KEY || "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",
         });
 
-        const prompt = `As a medical AI assistant, provide comprehensive medical advice for ${diseaseName} (confidence: ${confidence}%). 
-    
-    Please include:
-    1. What this condition means
-    2. Immediate precautions to take
-    3. Recommended treatments
-    4. When to seek medical attention
-    5. Prevention tips
-    6. Lifestyle recommendations
-    
-    Format the response in a clear, structured manner with bullet points and sections. 
-    Keep it informative but easy to understand for patients.`;
+const prompt = `
+As a medical AI assistant, provide comprehensive medical advice for ${diseaseName} (confidence: ${confidence}%).
+
+Please format your response using Markdown with the following guidelines:
+
+### Formatting rules:
+- Use ### for headers (e.g., ### What this condition means)
+- Use **bold** for emphasis on key terms
+- Use *italic* for emphasis on important points
+- Use numbered or dashed lists for multiple points (do NOT use asterisks *)
+- Use blockquotes (>) for important notes or warnings
+- Use emojis to enhance visual appeal and help with understanding
+- Keep each line concise; wrap text as needed to avoid overflow
+
+### Please include the following sections:
+
+1. ### What this condition means  
+   - Clear and concise explanation of the condition  
+   - Use bold and italics to highlight important concepts  
+
+2. ### Immediate precautions to take  
+   - List essential first steps or precautions  
+   - Include any urgent warnings or alerts  
+
+3. ### Recommended treatments  
+   - Outline common and effective treatment options  
+
+4. ### When to seek medical attention  
+   - Describe warning signs or symptoms requiring urgent care  
+   - Use blockquotes for emphasizing critical information  
+
+5. ### Prevention tips  
+   - Provide actionable steps to avoid or reduce risk  
+   - Use emojis for motivation and clarity  
+
+6. ### Lifestyle recommendations  
+   - Suggest lifestyle changes that support recovery or management  
+   - Use lists and bold/italic formatting to highlight key points  
+
+---
+
+Ensure the response is informative yet easy to understand for patients, structured for readability, and visually engaging.
+`;
+
 
         const chatCompletion = await groq.chat.completions.create({
             messages: [{
