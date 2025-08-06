@@ -6,7 +6,7 @@ export const config = {
   },
 };
 
-const PYTHON_API_URL = 'http://localhost:5001';
+const PYTHON_API_URL = 'https://tridev24-model.hf.space';
 
 export async function OPTIONS() {
   return new Response(null, {
